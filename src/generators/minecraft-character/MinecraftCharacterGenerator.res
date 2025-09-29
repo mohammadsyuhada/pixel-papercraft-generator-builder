@@ -74,8 +74,8 @@ let script = () => {
     },
   )
   Generator.defineSelectInput("Skin Model", ["Steve", "Alex"])
-  Generator.defineBooleanInput("Show Folds", true)
-  Generator.defineBooleanInput("Show Labels", true)
+  Generator.defineBooleanInput("Show Folds", false)
+  Generator.defineBooleanInput("Show Labels", false)
   Generator.defineText(
     "Click in the papercraft template to turn on and off the overlay for each part.",
   )
@@ -187,7 +187,7 @@ let script = () => {
 
   // Head
 
-  let (ox, oy) = (74, 25)
+  let (ox, oy) = (86, 85)
 
   drawHead((ox, oy))
   Generator.defineRegionInput((ox, oy, 256, 192), () => {
@@ -196,7 +196,7 @@ let script = () => {
 
   // Body
 
-  let (ox, oy) = (268, 201)
+  let (ox, oy) = (86, 290)
 
   drawBody((ox, oy))
   Generator.defineRegionInput((ox, oy, 192, 160), () => {
@@ -207,7 +207,7 @@ let script = () => {
 
   // Right Arm
 
-  let (ox, oy) = (isAlexModel ? 107 : 99, 373)
+  let (ox, oy) = (isAlexModel ? 107 : 396, 97)
 
   drawRightArm((ox, oy))
   Generator.defineRegionInput((ox, oy, isAlexModel ? 112 : 128, 160), () => {
@@ -216,7 +216,7 @@ let script = () => {
 
   // Left Arm
 
-  let (ox, oy) = (isAlexModel ? 391 : 383, 373)
+  let (ox, oy) = (isAlexModel ? 391 : 370, 280)
 
   drawLeftArm((ox, oy))
   Generator.defineRegionInput((ox, oy, isAlexModel ? 112 : 128, 166), () => {
@@ -225,7 +225,7 @@ let script = () => {
 
   // Right Leg
 
-  let (ox, oy) = (99, 587)
+  let (ox, oy) = (86, 467)
 
   drawRightLeg((ox, oy))
   Generator.defineRegionInput((ox, oy, 128, 160), () => {
@@ -234,7 +234,7 @@ let script = () => {
 
   // Left Leg
 
-  let (ox, oy) = (383, 587)
+  let (ox, oy) = (370, 467)
 
   drawLeftLeg((ox, oy))
   Generator.defineRegionInput((ox, oy, 128, 160), () => {
@@ -255,13 +255,13 @@ let script = () => {
 }
 
 let generator: Generator.generatorDef = {
-  id: id,
-  name: name,
-  history: history,
+  id,
+  name,
+  history,
   thumbnail: Some(thumbnail),
   video: None,
   instructions: Some(<Generator.Markdown> {instructions} </Generator.Markdown>),
-  images: images,
-  textures: textures,
-  script: script,
+  images,
+  textures,
+  script,
 }
