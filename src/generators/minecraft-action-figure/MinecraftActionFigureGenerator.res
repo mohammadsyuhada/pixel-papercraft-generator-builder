@@ -1,6 +1,13 @@
 let requireImage = id => Generator.requireImage("./images/" ++ id ++ ".png")
 let requireTexture = id => Generator.requireImage("./textures/" ++ id ++ ".png")
 
+// Scale factor for 300 DPI (2480x3508) vs 72 DPI (595x842)
+let scaleFactor = 2480.0 /. 595.0 // ≈ 4.167
+
+// Helper function to scale coordinates
+let scale = (value: int): int => Belt.Float.toInt(Belt.Int.toFloat(value) *. scaleFactor)
+let scaleFloat = (value: float): float => value *. scaleFactor
+
 let id = "minecraft-action-figure"
 
 let name = "Minecraft Action Figure"
@@ -58,22 +65,22 @@ let script = () => {
   let hideRightPant = Generator.getBooleanInputValue("Hide Right Pant")
 
   // Define regions
-  Generator.defineRegionInput((10, 534, 192, 256), () => {
+  Generator.defineRegionInput((scale(10), scale(534), scale(192), scale(256)), () => {
     Generator.setBooleanInputValue("Hide Helmet", !hideHelmet)
   })
-  Generator.defineRegionInput((35, 50, 192, 144), () => {
+  Generator.defineRegionInput((scale(35), scale(50), scale(192), scale(144)), () => {
     Generator.setBooleanInputValue("Hide Jacket", !hideJacket)
   })
-  Generator.defineRegionInput((265, 211, 128, 160), () => {
+  Generator.defineRegionInput((scale(265), scale(211), scale(128), scale(160)), () => {
     Generator.setBooleanInputValue("Hide Left Sleeve", !hideLeftSleeve)
   })
-  Generator.defineRegionInput((425, 587, 128, 160), () => {
+  Generator.defineRegionInput((scale(425), scale(587), scale(128), scale(160)), () => {
     Generator.setBooleanInputValue("Hide Right Sleeve", !hideRightSleeve)
   })
-  Generator.defineRegionInput((425, 162, 128, 208), () => {
+  Generator.defineRegionInput((scale(425), scale(162), scale(128), scale(208)), () => {
     Generator.setBooleanInputValue("Hide Left Pant", !hideLeftPant)
   })
-  Generator.defineRegionInput((265, 538, 128, 208), () => {
+  Generator.defineRegionInput((scale(265), scale(538), scale(128), scale(208)), () => {
     Generator.setBooleanInputValue("Hide Right Pant", !hideRightPant)
   })
 
@@ -81,61 +88,61 @@ let script = () => {
   Generator.drawTextureLegacy(
     "Skin",
     {x: 0, y: 8, w: 8, h: 8},
-    {x: 74, y: 790, w: 64, h: 64},
+    {x: scale(74), y: scale(790), w: scale(64), h: scale(64)},
     ~rotateLegacy=-90.0,
     (),
   ) // Right
   Generator.drawTextureLegacy(
     "Skin",
     {x: 8, y: 8, w: 8, h: 8},
-    {x: 74, y: 726, w: 64, h: 64},
+    {x: scale(74), y: scale(726), w: scale(64), h: scale(64)},
     ~rotateLegacy=-90.0,
     (),
   ) // Face
   Generator.drawTextureLegacy(
     "Skin",
     {x: 16, y: 8, w: 8, h: 8},
-    {x: 74, y: 662, w: 64, h: 64},
+    {x: scale(74), y: scale(662), w: scale(64), h: scale(64)},
     ~rotateLegacy=-90.0,
     (),
   ) // Left
   Generator.drawTextureLegacy(
     "Skin",
     {x: 24, y: 8, w: 8, h: 8},
-    {x: 74, y: 598, w: 64, h: 64},
+    {x: scale(74), y: scale(598), w: scale(64), h: scale(64)},
     ~rotateLegacy=-90.0,
     (),
   ) // Back
   Generator.drawTextureLegacy(
     "Skin",
     {x: 8, y: 0, w: 8, h: 8},
-    {x: 10, y: 726, w: 64, h: 64},
+    {x: scale(10), y: scale(726), w: scale(64), h: scale(64)},
     ~rotateLegacy=-90.0,
     (),
   ) // Top
   Generator.drawTextureLegacy(
     "Skin",
     {x: 16, y: 0, w: 8, h: 8},
-    {x: 138, y: 726, w: 64, h: 64},
+    {x: scale(138), y: scale(726), w: scale(64), h: scale(64)},
     ~rotateLegacy=-90.0,
     ~flip=#Vertical,
     (),
   ) // Bot
 
   //Neck
-  Generator.drawTextureLegacy("Skin", {x: 16, y: 0, w: 8, h: 8}, {x: 36, y: 414, w: 64, h: 96}, ()) // Bot
+  Generator.drawTextureLegacy("Skin", {x: 16, y: 0, w: 8, h: 8}, {x: scale(36), y: scale(414), w: scale(64), h: scale(96)}, ()) // Bot
 
   //Pelvis
   Generator.drawTextureLegacy(
     "Skin",
     {x: 20, y: 48, w: 4, h: 4},
-    {x: 163, y: 380, w: 32, h: 130},
+    {x: scale(163), y: scale(380), w: scale(32), h: scale(130)},
     (),
   ) // Left Pelvis
   Generator.drawTextureLegacy(
     "Skin",
     {x: 4, y: 16, w: 4, h: 4},
-    {x: 131, y: 380, w: 32, h: 130},
+    {x: scale(131), y: scale(380), w: scale(32), h: scale(130)},
     (),
   ) // Right Pelvis
 
@@ -143,20 +150,20 @@ let script = () => {
   Generator.drawTextureLegacy(
     "Skin",
     {x: 16, y: 16, w: 24, h: 16},
-    {x: 35, y: 50, w: 192, h: 128},
+    {x: scale(35), y: scale(50), w: scale(192), h: scale(128)},
     (),
   ) // Body
-  Generator.drawTextureLegacy("Skin", {x: 0, y: 20, w: 4, h: 4}, {x: 35, y: 178, w: 32, h: 32}, ()) // Right hip
+  Generator.drawTextureLegacy("Skin", {x: 0, y: 20, w: 4, h: 4}, {x: scale(35), y: scale(178), w: scale(32), h: scale(32)}, ()) // Right hip
   Generator.drawTextureLegacy(
     "Skin",
     {x: 24, y: 52, w: 4, h: 4},
-    {x: 131, y: 178, w: 32, h: 32},
+    {x: scale(131), y: scale(178), w: scale(32), h: scale(32)},
     (),
   ) // Left hip
   Generator.drawTextureLegacy(
     "Skin",
     {x: 28, y: 16, w: 8, h: 4},
-    {x: 67, y: 178, w: 64, h: 32},
+    {x: scale(67), y: scale(178), w: scale(64), h: scale(32)},
     ~flip=#Vertical,
     (),
   ) // Bot
@@ -168,32 +175,32 @@ let script = () => {
     Generator.drawTextureLegacy(
       "Skin",
       {x: 39, y: 48, w: 3, h: 4},
-      {x: 329, y: 338, w: 24, h: 32},
+      {x: scale(329), y: scale(338), w: scale(24), h: scale(32)},
       ~flip=#Vertical,
       (),
     ) //Left Hand
     Generator.drawTextureLegacy(
       "Skin",
       {x: 32, y: 48, w: 11, h: 16},
-      {x: 297, y: 211, w: 88, h: 128},
+      {x: scale(297), y: scale(211), w: scale(88), h: scale(128)},
       (),
     ) //Left arm
     Generator.drawTextureLegacy(
       "Skin",
       {x: 43, y: 52, w: 3, h: 12},
-      {x: 273, y: 243, w: 24, h: 96},
+      {x: scale(273), y: scale(243), w: scale(24), h: scale(96)},
       (),
     ) //Back Left Arm
     Generator.drawTextureLegacy(
       "Skin",
       {x: 32, y: 52, w: 4, h: 4},
-      {x: 297, y: 121, w: 32, h: 32},
+      {x: scale(297), y: scale(121), w: scale(32), h: scale(32)},
       (),
     ) //Left Shoulder
     Generator.drawTextureLegacy(
       "Skin",
       {x: 32, y: 52, w: 4, h: 4},
-      {x: 297, y: 86, w: 32, h: 32},
+      {x: scale(297), y: scale(86), w: scale(32), h: scale(32)},
       (),
     ) //Left Shoulder Inside
 
@@ -201,26 +208,26 @@ let script = () => {
     Generator.drawTextureLegacy(
       "Skin",
       {x: 47, y: 16, w: 3, h: 4},
-      {x: 465, y: 714, w: 24, h: 32},
+      {x: scale(465), y: scale(714), w: scale(24), h: scale(32)},
       ~flip=#Vertical,
       (),
     ) //Right Hand
     Generator.drawTextureLegacy(
       "Skin",
       {x: 40, y: 16, w: 14, h: 16},
-      {x: 433, y: 587, w: 112, h: 128},
+      {x: scale(433), y: scale(587), w: scale(112), h: scale(128)},
       (),
     ) //Right Arm
     Generator.drawTextureLegacy(
       "Skin",
       {x: 47, y: 20, w: 4, h: 4},
-      {x: 489, y: 496, w: 32, h: 32},
+      {x: scale(489), y: scale(496), w: scale(32), h: scale(32)},
       (),
     ) //Right Shoulder
     Generator.drawTextureLegacy(
       "Skin",
       {x: 47, y: 20, w: 4, h: 4},
-      {x: 489, y: 462, w: 32, h: 32},
+      {x: scale(489), y: scale(462), w: scale(32), h: scale(32)},
       (),
     ) //Right Shoulder Inside
   } else {
@@ -290,26 +297,26 @@ let script = () => {
   Generator.drawTextureLegacy(
     "Skin",
     {x: 16, y: 48, w: 12, h: 16},
-    {x: 457, y: 210, w: 96, h: 128},
+    {x: scale(457), y: scale(210), w: scale(96), h: scale(128)},
     (),
   ) //Left Leg
   Generator.drawTextureLegacy(
     "Skin",
     {x: 28, y: 52, w: 4, h: 8},
-    {x: 521, y: 210, w: 32, h: 64},
+    {x: scale(521), y: scale(210), w: scale(32), h: scale(64)},
     ~rotateLegacy=180.0,
     (),
   ) //Left Buttock
   Generator.drawTextureLegacy(
     "Skin",
     {x: 28, y: 52, w: 4, h: 12},
-    {x: 425, y: 242, w: 32, h: 96},
+    {x: scale(425), y: scale(242), w: scale(32), h: scale(96)},
     (),
   ) //Back Left Leg
   Generator.drawTextureLegacy(
     "Skin",
     {x: 24, y: 48, w: 4, h: 4},
-    {x: 489, y: 338, w: 32, h: 32},
+    {x: scale(489), y: scale(338), w: scale(32), h: scale(32)},
     ~flip=#Vertical,
     (),
   ) //Left foot
@@ -318,20 +325,20 @@ let script = () => {
   Generator.drawTextureLegacy(
     "Skin",
     {x: 0, y: 16, w: 16, h: 16},
-    {x: 265, y: 586, w: 128, h: 128},
+    {x: scale(265), y: scale(586), w: scale(128), h: scale(128)},
     (),
   ) //Right Leg
   Generator.drawTextureLegacy(
     "Skin",
     {x: 12, y: 20, w: 4, h: 8},
-    {x: 329, y: 586, w: 32, h: 64},
+    {x: scale(329), y: scale(586), w: scale(32), h: scale(64)},
     ~rotateLegacy=180.0,
     (),
   ) //Right Buttock
   Generator.drawTextureLegacy(
     "Skin",
     {x: 8, y: 16, w: 4, h: 4},
-    {x: 297, y: 714, w: 32, h: 32},
+    {x: scale(297), y: scale(714), w: scale(32), h: scale(32)},
     ~flip=#Vertical,
     (),
   ) //Right foot
@@ -342,42 +349,42 @@ let script = () => {
     Generator.drawTextureLegacy(
       "Skin",
       {x: 32, y: 8, w: 8, h: 8},
-      {x: 74, y: 790, w: 64, h: 64},
+      {x: scale(74), y: scale(790), w: scale(64), h: scale(64)},
       ~rotateLegacy=-90.0,
       (),
     ) // Right
     Generator.drawTextureLegacy(
       "Skin",
       {x: 40, y: 8, w: 8, h: 8},
-      {x: 74, y: 726, w: 64, h: 64},
+      {x: scale(74), y: scale(726), w: scale(64), h: scale(64)},
       ~rotateLegacy=-90.0,
       (),
     ) // Face
     Generator.drawTextureLegacy(
       "Skin",
       {x: 48, y: 8, w: 8, h: 8},
-      {x: 74, y: 662, w: 64, h: 64},
+      {x: scale(74), y: scale(662), w: scale(64), h: scale(64)},
       ~rotateLegacy=-90.0,
       (),
     ) // Left
     Generator.drawTextureLegacy(
       "Skin",
       {x: 56, y: 8, w: 8, h: 8},
-      {x: 74, y: 598, w: 64, h: 64},
+      {x: scale(74), y: scale(598), w: scale(64), h: scale(64)},
       ~rotateLegacy=-90.0,
       (),
     ) // Back
     Generator.drawTextureLegacy(
       "Skin",
       {x: 40, y: 0, w: 8, h: 8},
-      {x: 10, y: 726, w: 64, h: 64},
+      {x: scale(10), y: scale(726), w: scale(64), h: scale(64)},
       ~rotateLegacy=-90.0,
       (),
     ) // Top
     Generator.drawTextureLegacy(
       "Skin",
       {x: 48, y: 0, w: 8, h: 8},
-      {x: 138, y: 726, w: 64, h: 64},
+      {x: scale(138), y: scale(726), w: scale(64), h: scale(64)},
       ~rotateLegacy=-90.0,
       ~flip=#Vertical,
       (),
@@ -387,7 +394,7 @@ let script = () => {
     Generator.drawTextureLegacy(
       "Skin",
       {x: 48, y: 0, w: 8, h: 8},
-      {x: 36, y: 414, w: 64, h: 96},
+      {x: scale(36), y: scale(414), w: scale(64), h: scale(96)},
       (),
     )
   } // Bot
@@ -397,13 +404,13 @@ let script = () => {
     Generator.drawTextureLegacy(
       "Skin",
       {x: 16, y: 32, w: 24, h: 16},
-      {x: 35, y: 50, w: 192, h: 128},
+      {x: scale(35), y: scale(50), w: scale(192), h: scale(128)},
       (),
     ) // Jacket
     Generator.drawTextureLegacy(
       "Skin",
       {x: 28, y: 32, w: 8, h: 4},
-      {x: 67, y: 178, w: 64, h: 32},
+      {x: scale(67), y: scale(178), w: scale(64), h: scale(32)},
       ~flip=#Vertical,
       (),
     )
@@ -642,15 +649,15 @@ let script = () => {
   // Hand Notches
   if handNotches {
     if alexModel {
-      Generator.drawImage("Notch", (341, 307)) // Front Left Notch
-      Generator.drawImage("Notch", (285, 307)) // Back Left Notch
-      Generator.drawImage("Notch", (477, 683)) // Front Right Notch
-      Generator.drawImage("Notch", (533, 683)) // Back Right Notch
+      Generator.drawImage("Notch", (scale(341), scale(307))) // Front Left Notch
+      Generator.drawImage("Notch", (scale(285), scale(307))) // Back Left Notch
+      Generator.drawImage("Notch", (scale(477), scale(683))) // Front Right Notch
+      Generator.drawImage("Notch", (scale(533), scale(683))) // Back Right Notch
     } else {
-      Generator.drawImage("Notch", (345, 307)) // Front Left Notch
-      Generator.drawImage("Notch", (281, 307)) // Back Left Notch
-      Generator.drawImage("Notch", (473, 683)) // Front Right Notch
-      Generator.drawImage("Notch", (537, 683)) // Back Right Notch
+      Generator.drawImage("Notch", (scale(345), scale(307))) // Front Left Notch
+      Generator.drawImage("Notch", (scale(281), scale(307))) // Back Left Notch
+      Generator.drawImage("Notch", (scale(473), scale(683))) // Front Right Notch
+      Generator.drawImage("Notch", (scale(537), scale(683))) // Back Right Notch
     }
   }
 
