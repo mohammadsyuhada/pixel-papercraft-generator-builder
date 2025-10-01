@@ -81,7 +81,7 @@ let script = () => {
     },
   )
   Generator.defineSelectInput("Skin Model", ["Steve", "Alex"])
-  Generator.defineBooleanInput("Show Folds", true)
+  Generator.defineBooleanInput("Show Folds", false)
   // Generator.defineBooleanInput("Show Labels", false)
   Generator.defineText(
     "Click in the papercraft template to turn on and off the overlay for each part.",
@@ -224,7 +224,7 @@ let script = () => {
 
   // Right Arm
 
-  let (ox, oy) = (isAlexModel ? scale(107) : scale(404), scale(68))
+  let (ox, oy) = (scale(404), scale(68))
 
   drawRightArm((ox, oy))
   Generator.defineRegionInput((ox, oy, isAlexModel ? scale(112) : scale(128), scale(160)), () => {
@@ -233,7 +233,7 @@ let script = () => {
 
   // Left Arm
 
-  let (ox, oy) = (isAlexModel ? scale(400) : scale(379), scale(251))
+  let (ox, oy) = (scale(379), scale(251))
 
   drawLeftArm((ox, oy))
   Generator.defineRegionInput((ox, oy, isAlexModel ? scale(112) : scale(128), scale(166)), () => {
