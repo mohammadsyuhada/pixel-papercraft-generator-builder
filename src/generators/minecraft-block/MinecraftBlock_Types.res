@@ -2,6 +2,12 @@ module TexturePicker = MinecraftBlock_TexturePicker
 module Textures = MinecraftBlock_Textures
 module Face = MinecraftBlock_Face
 
+// Scale factor for 300 DPI (2480x3508) vs 72 DPI (595x842)
+let scaleFactor = 2480.0 /. 595.0 // ≈ 4.167
+
+// Helper function to scale coordinates
+let scale = (value: int): int => Belt.Float.toInt(Belt.Int.toFloat(value) *. scaleFactor)
+
 type region = (int, int, int, int)
 
 module Block = {
@@ -15,7 +21,7 @@ module Block = {
       back: region,
     }
 
-    let size = 128
+    let size = scale(128)
 
     let make = (ox, oy): faces => {
       top: (ox + size, oy + 0, size, size),
@@ -44,10 +50,10 @@ module Block = {
     Face.draw("BlockFaceLeft" ++ blockId, (0, 0, 16, 16), regions.left, ())
     Face.draw("BlockFaceBack" ++ blockId, (0, 0, 16, 16), regions.back, ())
 
-    Generator.drawImage("Tabs-Block", (ox - 32, oy - 1))
+    Generator.drawImage("Tabs-Block", (ox - scale(32), oy - scale(1)))
 
     if showFolds {
-      Generator.drawImage("Folds-Block", (ox - 32, oy - 1))
+      Generator.drawImage("Folds-Block", (ox - scale(32), oy - scale(1)))
     }
   }
 }
@@ -63,7 +69,7 @@ module Slab = {
       back: region,
     }
 
-    let size = 128
+    let size = scale(128)
 
     let make = (ox, oy) => {
       top: (ox + size, oy + size / 2, size, size),
@@ -92,10 +98,10 @@ module Slab = {
     Face.draw("SlabFaceLeft" ++ blockId, (0, 8, 16, 8), regions.left, ())
     Face.draw("SlabFaceBack" ++ blockId, (0, 8, 16, 8), regions.back, ())
 
-    Generator.drawImage("Tabs-Slab", (ox - 32, oy - 1))
+    Generator.drawImage("Tabs-Slab", (ox - scale(32), oy - scale(1)))
 
     if showFolds {
-      Generator.drawImage("Folds-Slab", (ox - 32, oy - 1))
+      Generator.drawImage("Folds-Slab", (ox - scale(32), oy - scale(1)))
     }
   }
 }
@@ -113,7 +119,7 @@ module Stair = {
       back2: region,
     }
 
-    let size = 128
+    let size = scale(128)
 
     let make = (ox, oy): faces => {
       top: (ox + size, oy + size / 2, size, size / 2),
@@ -148,10 +154,10 @@ module Stair = {
     Face.draw("StairFaceBack" ++ blockId, (0, 8, 16, 8), regions.back, ())
     Face.draw("StairFaceTop" ++ blockId, (0, 0, 16, 8), regions.top2, ~rotate=180.0, ())
 
-    Generator.drawImage("Tabs-Stair", (ox - 32, oy - 1))
+    Generator.drawImage("Tabs-Stair", (ox - scale(32), oy - scale(1)))
 
     if showFolds {
-      Generator.drawImage("Folds-Stair", (ox - 32, oy - 1))
+      Generator.drawImage("Folds-Stair", (ox - scale(32), oy - scale(1)))
     }
   }
 }
@@ -204,14 +210,14 @@ module Fence = {
       l2back2: region,
     }
 
-    let size = 128
-    let size2 = 16
-    let size3 = 24
-    let sizel = 96
-    let x1 = -1
-    let x2 = 320
-    let y1 = 96
-    let y2 = 208
+    let size = scale(128)
+    let size2 = scale(16)
+    let size3 = scale(24)
+    let sizel = scale(96)
+    let x1 = scale(-1)
+    let x2 = scale(320)
+    let y1 = scale(96)
+    let y2 = scale(208)
 
     let make = (ox, oy): faces => {
       // fence post
@@ -313,10 +319,10 @@ module Fence = {
     Face.draw("FenceFaceFront" ++ blockId, (0, 7, 6, 3), regions.l2front2, ())
     Face.draw("FenceFaceBack" ++ blockId, (7, 7, 6, 3), regions.l2back2, ~rotate=180.0, ())
 
-    Generator.drawImage("Tabs-Fence", (ox - 32, oy - 1))
+    Generator.drawImage("Tabs-Fence", (ox - scale(32), oy - scale(1)))
 
     if showFolds {
-      Generator.drawImage("Folds-Fence", (ox - 32, oy - 1))
+      Generator.drawImage("Folds-Fence", (ox - scale(32), oy - scale(1)))
     }
   }
 }
@@ -336,8 +342,8 @@ module Door = {
       back2: region,
     }
 
-    let size = 128
-    let size2 = 24
+    let size = scale(128)
+    let size2 = scale(24)
 
     let make = (ox, oy): faces => {
       top: (ox + size * 3 / 2 - size2 / 2, oy - size2 / 2, size2, size),
@@ -370,10 +376,10 @@ module Door = {
     Face.draw("DoorFace2" ++ blockId, (0, 0, 3, 16), regions.left2, ())
     Face.draw("DoorFace2" ++ blockId, (0, 0, 16, 16), regions.back2, ~flip=#Horizontal, ())
 
-    Generator.drawImage("Tabs-Door", (ox - 32, oy - 1))
+    Generator.drawImage("Tabs-Door", (ox - scale(32), oy - scale(1)))
 
     if showFolds {
-      Generator.drawImage("Folds-Door", (ox - 32, oy - 1))
+      Generator.drawImage("Folds-Door", (ox - scale(32), oy - scale(1)))
     }
   }
 }
@@ -389,8 +395,8 @@ module Trapdoor = {
       back: region,
     }
 
-    let size = 128
-    let size2 = 24
+    let size = scale(128)
+    let size2 = scale(24)
 
     let make = (ox, oy): faces => {
       top: (ox + size, oy + size - size2, size, size2),
@@ -414,10 +420,10 @@ module Trapdoor = {
     Face.draw("TrapdoorFace" ++ blockId, (0, 0, 16, 3), regions.left, ~rotate=-90.0, ())
     Face.draw("TrapdoorFace" ++ blockId, (0, 0, 16, 16), regions.back, ())
 
-    Generator.drawImage("Tabs-Trapdoor", (ox - 32, oy - 1))
+    Generator.drawImage("Tabs-Trapdoor", (ox - scale(32), oy - scale(1)))
 
     if showFolds {
-      Generator.drawImage("Folds-Trapdoor", (ox - 32, oy - 1))
+      Generator.drawImage("Folds-Trapdoor", (ox - scale(32), oy - scale(1)))
     }
   }
 }
@@ -433,24 +439,24 @@ module Snow = {
       back: region,
     }
 
-    let size = 128
+    let size = scale(128)
 
     let make = (ox, oy, levels, offset): faces => {
-      top: (ox + size, oy + size - levels * 16 + offset * 8, size, size),
+      top: (ox + size, oy + size - levels * scale(16) + offset * scale(8), size, size),
       bottom: (ox + size, oy + size * 2, size, size),
-      right: (ox, oy + size * 2 - levels * 16 + offset * 8, size, levels * 16 - offset * 8),
-      front: (ox + size, oy + size * 2 - levels * 16 + offset * 8, size, levels * 16 - offset * 8),
+      right: (ox, oy + size * 2 - levels * scale(16) + offset * scale(8), size, levels * scale(16) - offset * scale(8)),
+      front: (ox + size, oy + size * 2 - levels * scale(16) + offset * scale(8), size, levels * scale(16) - offset * scale(8)),
       left: (
         ox + size * 2,
-        oy + size * 2 - levels * 16 + offset * 8,
+        oy + size * 2 - levels * scale(16) + offset * scale(8),
         size,
-        levels * 16 - offset * 8,
+        levels * scale(16) - offset * scale(8),
       ),
       back: (
         ox + size * 3,
-        oy + size * 2 - levels * 16 + offset * 8,
+        oy + size * 2 - levels * scale(16) + offset * scale(8),
         size,
-        levels * 16 - offset * 8,
+        levels * scale(16) - offset * scale(8),
       ),
     }
   }
@@ -509,16 +515,16 @@ module Snow = {
       (),
     )
 
-    Generator.drawImage("Tabs-Snow-Bottom", (ox - 32, oy - 1))
+    Generator.drawImage("Tabs-Snow-Bottom", (ox - scale(32), oy - scale(1)))
 
     if showFolds {
-      Generator.drawImage("Folds-Snow-Bottom", (ox - 32, oy - 1))
+      Generator.drawImage("Folds-Snow-Bottom", (ox - scale(32), oy - scale(1)))
     }
 
-    Generator.drawImage("Tabs-Snow-Top", (ox - 32, oy - 1 + 128 - levels * 16 + offset * 8))
-    Generator.drawImage("Tabs-Snow-Middle", (ox - 32, oy - 1))
+    Generator.drawImage("Tabs-Snow-Top", (ox - scale(32), oy - scale(1) + scale(128) - levels * scale(16) + offset * scale(8)))
+    Generator.drawImage("Tabs-Snow-Middle", (ox - scale(32), oy - scale(1)))
     if showFolds {
-      Generator.drawImage("Folds-Snow-Top", (ox - 32, oy - 1 + 128 - levels * 16 + offset * 8))
+      Generator.drawImage("Folds-Snow-Top", (ox - scale(32), oy - scale(1) + scale(128) - levels * scale(16) + offset * scale(8)))
     }
   }
 }
@@ -534,9 +540,9 @@ module Cake = {
       back: region,
     }
 
-    let size = 128
-    let dif = 16
-    let sizeb = 16
+    let size = scale(128)
+    let dif = scale(16)
+    let sizeb = scale(16)
     let sizec = size - dif
 
     let make = (ox, oy, bites): faces => {
@@ -586,21 +592,21 @@ module Cake = {
     Face.draw("CakeFaceLeft" ++ blockId, (1, 8, 14, 8), regions.left, ())
     Face.draw("CakeFaceBack" ++ blockId, (1, 8, 14 - 2 * bites, 8), regions.back, ())
 
-    Generator.drawImage("Tabs-Cake-Left", (ox - 32, oy - 1))
+    Generator.drawImage("Tabs-Cake-Left", (ox - scale(32), oy - scale(1)))
     if showFolds {
-      Generator.drawImage("Folds-Cake-Left", (ox - 32, oy - 1))
+      Generator.drawImage("Folds-Cake-Left", (ox - scale(32), oy - scale(1)))
     }
 
-    Generator.drawImage("Tabs-Cake-Middle", (ox - 32 - bites * 16, oy - 1))
+    Generator.drawImage("Tabs-Cake-Middle", (ox - scale(32) - bites * scale(16), oy - scale(1)))
     if showFolds {
-      Generator.drawImage("Folds-Cake-Middle", (ox - 32 - bites * 16, oy - 1))
+      Generator.drawImage("Folds-Cake-Middle", (ox - scale(32) - bites * scale(16), oy - scale(1)))
     }
 
-    Generator.drawImage("Tabs-Cake-Right", (ox - 16 - bites * 32, oy - 1))
+    Generator.drawImage("Tabs-Cake-Right", (ox - scale(16) - bites * scale(32), oy - scale(1)))
     if showFolds {
-      Generator.drawImage("Folds-Cake-Right", (ox - 32 - bites * 32, oy - 1))
+      Generator.drawImage("Folds-Cake-Right", (ox - scale(32) - bites * scale(32), oy - scale(1)))
     }
 
-    Generator.drawImage("Tabs-Cake-Corner", (ox - 32 - bites * 16, oy - 1))
+    Generator.drawImage("Tabs-Cake-Corner", (ox - scale(32) - bites * scale(16), oy - scale(1)))
   }
 }

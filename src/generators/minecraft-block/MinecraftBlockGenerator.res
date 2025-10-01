@@ -3,6 +3,12 @@ module Textures = MinecraftBlock_Textures
 module Face = MinecraftBlock_Face
 module Types = MinecraftBlock_Types
 
+// Scale factor for 300 DPI (2480x3508) vs 72 DPI (595x842)
+let scaleFactor = 2480.0 /. 595.0 // ≈ 4.167
+
+// Helper function to scale coordinates
+let scale = (value: int): int => Belt.Float.toInt(Belt.Int.toFloat(value) *. scaleFactor)
+
 let id = "minecraft-block"
 
 let name = "Minecraft Block"
@@ -78,8 +84,8 @@ let script = () => {
     )
     let blockType = Generator.getSelectInputValue(typeName)
 
-    let ox = 57
-    let oy = 16 + 400 * (i - 1)
+    let ox = scale(57)
+    let oy = scale(16) + scale(400) * (i - 1)
 
     switch blockType {
     | "Block" => Types.Block.draw(blockId, ox, oy, showFolds)
