@@ -1,8 +1,8 @@
 let requireImage = id => Generator.requireImage("./images/" ++ id ++ ".png")
 let requireTexture = id => Generator.requireImage("./textures/" ++ id ++ ".png")
 
-// Scale factor for 300 DPI (2480x3508) vs 72 DPI (595x842)
-let scaleFactor = 2480.0 /. 595.0 // ≈ 4.167
+// Scale factor to convert 64x64 base unit to 300x300
+let scaleFactor = 300.0 /. 64.0 // ≈ 4.6875
 
 // Helper function to scale coordinates
 let scale = (value: int): int => Belt.Float.toInt(Belt.Int.toFloat(value) *. scaleFactor)
@@ -201,7 +201,7 @@ let script = () => {
 
   // Head
 
-  let (ox, oy) = (scale(85), scale(291))
+  let (ox, oy) = (scale(64), scale(241))
 
   drawHead((ox, oy))
 
@@ -213,7 +213,7 @@ let script = () => {
 
   // Body
 
-  let (ox, oy) = (scale(116), scale(512))
+  let (ox, oy) = (scale(96), scale(446))
 
   drawBody((ox, oy))
   Generator.defineRegionInput((ox, oy, scale(192), scale(160)), () => {
@@ -224,7 +224,7 @@ let script = () => {
 
   // Right Arm
 
-  let (ox, oy) = (scale(404), scale(68))
+  let (ox, oy) = (scale(367), scale(34))
 
   drawRightArm((ox, oy))
   Generator.defineRegionInput((ox, oy, isAlexModel ? scale(112) : scale(128), scale(160)), () => {
@@ -233,7 +233,7 @@ let script = () => {
 
   // Left Arm
 
-  let (ox, oy) = (scale(379), scale(251))
+  let (ox, oy) = (scale(335), scale(207))
 
   drawLeftArm((ox, oy))
   Generator.defineRegionInput((ox, oy, isAlexModel ? scale(112) : scale(128), scale(166)), () => {
@@ -242,7 +242,7 @@ let script = () => {
 
   // Right Leg
 
-  let (ox, oy) = (scale(404), scale(434))
+  let (ox, oy) = (scale(367), scale(382))
 
   drawRightLeg((ox, oy))
   Generator.defineRegionInput((ox, oy, scale(128), scale(160)), () => {
@@ -251,7 +251,7 @@ let script = () => {
 
   // Left Leg
 
-  let (ox, oy) = (scale(380), scale(616))
+  let (ox, oy) = (scale(335), scale(555))
 
   drawLeftLeg((ox, oy))
   Generator.defineRegionInput((ox, oy, scale(128), scale(160)), () => {
